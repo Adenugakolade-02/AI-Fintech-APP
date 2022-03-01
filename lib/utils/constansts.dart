@@ -19,7 +19,7 @@ const TextTheme TEXT_THEME_DEFAULT = TextTheme(
     color: COLOR_BLACK, fontWeight: FontWeight.w400, fontSize: 14),
   
   headline4: TextStyle(
-    color: COLOR_BLACK, fontWeight: FontWeight.w200, fontSize: 18, fontFamily: 'Roboto'),
+    color: COLOR_BLACK, fontWeight: FontWeight.w400, fontSize: 18, fontFamily: 'Roboto'),
   
   headline5: TextStyle(
     color: COLOR_WHITE, fontWeight: FontWeight.w800, fontSize: 50, fontFamily: 'Nunito'),

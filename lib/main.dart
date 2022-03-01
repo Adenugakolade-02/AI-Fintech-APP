@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:superlender/screens/bio_data_screen.dart';
 import 'package:superlender/screens/homescreen.dart';
 import 'package:superlender/utils/constansts.dart';
 
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(primaryColor: COLOR_WHITE, textTheme: TEXT_THEME_DEFAULT, fontFamily: 'Poppins'
       ),
-      home: HomeScreen(),
+      home: BioDataScreen(),
     );
   }
 }
