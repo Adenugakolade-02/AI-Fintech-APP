@@ -23,6 +23,9 @@ const TextTheme TEXT_THEME_DEFAULT = TextTheme(
   
   headline5: TextStyle(
     color: COLOR_WHITE, fontWeight: FontWeight.w800, fontSize: 50, fontFamily: 'Nunito'),
+
+  overline: TextStyle(
+    color: Colors.black87, fontWeight: FontWeight.w800, fontSize: 50, fontFamily: 'Nunito'),
   
   subtitle1: TextStyle(
     color: COLOR_GREY, fontWeight: FontWeight.w300, fontSize: 16, fontFamily: 'Roboto'),
