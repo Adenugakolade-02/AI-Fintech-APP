@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:superlender/utils/company_name_with_logo.dart';
+import 'package:superlender/widgets/company_name_with_logo.dart';
 import 'package:superlender/utils/constansts.dart';
+import 'package:superlender/widgets/home_button.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -14,7 +15,7 @@ class HomeScreen extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 8),
           child: Column(
             children: [
-              const SizedBox(height: 120,),
+              SizedBox(height: constraints.maxWidth * 0.3,),
               
               Center(
                 child: Container(
@@ -23,8 +24,17 @@ class HomeScreen extends StatelessWidget {
                   child: Image.asset('assets/images/superlender2 1.png',fit: BoxFit.contain,),
                 ),
               ),
-              Container(height:20,),
-              Center(child: ComapanyNameWithLogo(height: constraints.maxWidth,width:constraints.maxWidth))
+              SizedBox(height:constraints.maxWidth * 0.08,),
+              
+              Center(child: ComapanyNameWithLogo(height: constraints.maxWidth,width:constraints.maxWidth)),
+              
+              SizedBox(height:constraints.maxWidth * 0.08,),
+              
+              HomeButton(text: 'Get Started', color: Colors.black87, style: TEXT_THEME_DEFAULT.bodyText2!),
+              
+              SizedBox(height:constraints.maxWidth * 0.08,),
+              
+              HomeButton(text: 'About Us', color: COLOR_WHITE, style: TEXT_THEME_DEFAULT.bodyText1!)
             ]),
         );
       }
