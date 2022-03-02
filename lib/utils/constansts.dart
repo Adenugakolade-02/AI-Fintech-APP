@@ -43,6 +43,6 @@ const TextTheme TEXT_THEME_DEFAULT = TextTheme(
     color: COLOR_WHITE, fontWeight: FontWeight.w700, fontSize: 20, fontFamily: 'Nunito'),
 
   headline6: TextStyle(
-    color: COLOR_WHITE, fontWeight: FontWeight.w500, fontSize: 16),
+    color: COLOR_HEADINGS_BLACK, fontWeight: FontWeight.w500, fontSize: 16),
 
 );

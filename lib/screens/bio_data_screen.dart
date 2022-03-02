@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:superlender/utils/constansts.dart';
 import 'package:superlender/widgets/company_name_headings.dart';
 import 'package:superlender/widgets/drop_downItems.dart';
+import 'package:superlender/widgets/navigator_button.dart';
 import 'package:superlender/widgets/profileinfo_subheading.dart';
 import 'package:superlender/widgets/plain_title_with_FormField.dart';
 import 'package:superlender/widgets/title_with_iconFormField.dart';
@@ -21,9 +22,10 @@ class BioDataScreen extends StatelessWidget {
                 CompanyHeading(),
                 
                 Container(
-                  height: constraints.maxHeight*0.8,
+                  height: constraints.maxHeight-50,
                   child: SingleChildScrollView(
                     child : Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                       addVerticalSpace(20),
                   
@@ -47,18 +49,17 @@ class BioDataScreen extends StatelessWidget {
                       addVerticalSpace(10),
                       const PlainTitlewithFormField(text:'Age',number:true),
                       addVerticalSpace(10),
-                      // const PlainTitlewithFormField(text:'Age',number:true),
-                      // addVerticalSpace(10),
-                      // const PlainTitlewithFormField(text:'Age',number:true),
-                      // addVerticalSpace(10),
-                      // const PlainTitlewithFormField(text:'Age',number:true),
-                      Container(
-                        width: constraints.maxWidth,
-                        child: DropDownItems(items: ['this','is','fucked']))
+                      const DropDownItems(items: ['Null','Savings','Current','Other'], title: 'Account Type'),
+                      addVerticalSpace(10),
+                      const DropDownItems(items: ['Permanent','Unemployed','Self-Employed','Student','Retire','Contract'], title: 'Employment Status',),
+                      addVerticalSpace(10),
+                      const DropDownItems(items: ['Null','Primary','Secondary','Graduate','Post Graduate'], title: 'Education'),
+                      addVerticalSpace(32),
+                      Center(child: NavigatorButton()),
+                      addVerticalSpace(10)
                       ],)
                   ),
                 )
-
               ]),
             );
           },

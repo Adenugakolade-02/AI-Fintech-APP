@@ -21,7 +21,7 @@ class PlainTitlewithFormField extends StatelessWidget {
           addVerticalSpace(3),
           TextFormField(
             style: textTheme.headline4,
-            keyboardType:number!? TextInputType.name: TextInputType.number ,
+            keyboardType:number!? TextInputType.number: TextInputType.name ,
             decoration: InputDecoration(
               contentPadding: const EdgeInsets.only(left:16)
             )
