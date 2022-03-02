@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:superlender/utils/constansts.dart';
+import 'package:superlender/widgets/bankname_dropdown_menu.dart';
 import 'package:superlender/widgets/company_name_headings.dart';
 import 'package:superlender/widgets/drop_downItems.dart';
 import 'package:superlender/widgets/navigator_button.dart';
@@ -54,6 +55,8 @@ class BioDataScreen extends StatelessWidget {
                       const DropDownItems(items: ['Permanent','Unemployed','Self-Employed','Student','Retire','Contract'], title: 'Employment Status',),
                       addVerticalSpace(10),
                       const DropDownItems(items: ['Null','Primary','Secondary','Graduate','Post Graduate'], title: 'Education'),
+                      addVerticalSpace(10),
+                      BankNameDropDown(),
                       addVerticalSpace(32),
                       Center(child: NavigatorButton()),
                       addVerticalSpace(10)
