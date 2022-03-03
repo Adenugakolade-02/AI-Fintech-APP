@@ -10,7 +10,7 @@ class BankNameDropDown extends StatefulWidget {
 
 class _BankNameDropDownState extends State<BankNameDropDown> {
   
-  Map<String,String> bankWithLogos ={
+  Map<String,String> bankWithLogos = {
     'Diamond Bank': 'assets/images/Diamond Bank.jpg',
     'GT Bank': 'assets/images/gtbank.png',
     'EcoBank': 'assets/images/ecobank.png',

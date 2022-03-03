@@ -6,26 +6,30 @@ import 'package:superlender/widgets/drop_downItems.dart';
 import 'package:superlender/widgets/navigator_button.dart';
 import 'package:superlender/widgets/profileinfo_subheading.dart';
 import 'package:superlender/widgets/plain_title_with_FormField.dart';
+import 'package:superlender/widgets/save_button.dart';
 import 'package:superlender/widgets/title_with_iconFormField.dart';
 import '../utils/constant_functions.dart';
-import 'loan_details_screen.dart';
 
-class BioDataScreen extends StatelessWidget {
+
+
+class LoanDetails extends StatefulWidget {
+  @override
+  State<LoanDetails> createState() => _LoanDetailsState();
+}
+
+class _LoanDetailsState extends State<LoanDetails> {
   TextTheme  textTheme = TEXT_THEME_DEFAULT;
 
-  // void navPage(){
-  //   Navigator.push(context, MaterialPageRoute(builder: (context) =>  LoanDetails()));
-  // }
-  @override
-  
-  Widget build(BuildContext context) {
+  bool _isPreviousLoan = false;
 
-    void navPage(){
+  void navPage(){
     Navigator.push(context, MaterialPageRoute(builder: (context) =>  LoanDetails()));
   }
 
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
-        body: SafeArea(
+      body: SafeArea(
           child: LayoutBuilder(
           builder: (context, constraints){
             return Container(
@@ -41,7 +45,7 @@ class BioDataScreen extends StatelessWidget {
                       children: <Widget>[
                       addVerticalSpace(20),
                   
-                      Center(child: Text('Profile info', style: textTheme.headline1,)),
+                      Center(child: Text('Loan Application', style: textTheme.headline1,)),
                   
                       addVerticalSpace(6),
                   
@@ -51,25 +55,42 @@ class BioDataScreen extends StatelessWidget {
 
                       const Divider(color: Color(0xFFBBBFC1),),
                       addVerticalSpace(32),
-                      Text('Personal Data',style: textTheme.headline2),
+                      Text('Loan Info',style: textTheme.headline2),
                       addVerticalSpace(2),
-                      Text('specify exactly as in your passport',style: textTheme.subtitle2),
+                      Text('enter loan details correctly',style: textTheme.subtitle2),
                       addVerticalSpace(32),
-                      const PlainTitlewithFormField(text: 'First name'),
+                      const PlainTitlewithFormField(text: 'Loan Amount',number: true,),
                       addVerticalSpace(10),
-                      const PlainTitlewithFormField(text:'Second name'),
+                      const PlainTitlewithFormField(text:'Term Days',number: true,),
                       addVerticalSpace(10),
-                      const PlainTitlewithFormField(text:'Age',number:true),
+                      const PlainTitlewithFormField(text:'Creation Date',number:true),
                       addVerticalSpace(10),
-                      const DropDownItems(items: ['Null','Savings','Current','Other'], title: 'Account Type'),
+                      const PlainTitlewithFormField(text:'Approved Date',number:true),
                       addVerticalSpace(10),
-                      const DropDownItems(items: ['Permanent','Unemployed','Self-Employed','Student','Retire','Contract'], title: 'Employment Status',),
+                      
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Text('Obtained a Previous Loan?',style: textTheme.headline3,),
+                          Checkbox(
+                            value: _isPreviousLoan, onChanged: (newValue){
+                              setState(() {
+                                _isPreviousLoan = newValue!;
+                              });
+                            }),
+                        ],
+                      ),
+                      
+                      if (_isPreviousLoan) ...[
+                      const PlainTitlewithFormField(text: 'Total Amount',number: true,),
                       addVerticalSpace(10),
-                      const DropDownItems(items: ['Null','Primary','Secondary','Graduate','Post Graduate'], title: 'Education'),
+                      const PlainTitlewithFormField(text:'Number Of Loans',number: true,),
                       addVerticalSpace(10),
-                      BankNameDropDown(),
-                      addVerticalSpace(32),
-                      Center(child: NavigatorButton(function: navPage)),
+                      ] else...[
+                        Container()
+                      ],
+                      
+                      Center(child: SaveButton()),
                       addVerticalSpace(10)
                       ],)
                   ),
