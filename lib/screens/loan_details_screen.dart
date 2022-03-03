@@ -9,6 +9,7 @@ import 'package:superlender/widgets/plain_title_with_FormField.dart';
 import 'package:superlender/widgets/save_button.dart';
 import 'package:superlender/widgets/title_with_iconFormField.dart';
 import '../utils/constant_functions.dart';
+import '../widgets/progression_indicator.dart';
 
 
 
@@ -36,9 +37,12 @@ class _LoanDetailsState extends State<LoanDetails> {
               padding: const EdgeInsets.symmetric(horizontal:24),
               child: Column(children: [
                 CompanyHeading(),
+                addVerticalSpace(48),
+                Center(child: HardCodeProgressionIndicator(screenOne:true,screenTwo: true,)),
+                addVerticalSpace(10),
                 
                 Container(
-                  height: constraints.maxHeight-50,
+                  height: constraints.maxHeight-120,
                   child: SingleChildScrollView(
                     child : Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
