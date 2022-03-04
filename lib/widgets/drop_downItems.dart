@@ -5,8 +5,9 @@ import 'package:superlender/utils/constant_functions.dart';
 class DropDownItems extends StatefulWidget {
   final List<String> items;
   final String title;
+  final Function(List<int>) function;
 
-  const DropDownItems({Key? key, required this.items, required this.title}) : super(key: key);
+  const DropDownItems({Key? key, required this.items, required this.title,required this.function}) : super(key: key);
   @override
   State<DropDownItems> createState() => _DropDownItemsState();
 }
@@ -15,6 +16,7 @@ class _DropDownItemsState extends State<DropDownItems> {
   TextTheme textTheme = TEXT_THEME_DEFAULT;
   String? dropdownvalue;
 
+  List<int> encodedValues =[];
   
   @override
   void initState() {
@@ -22,11 +24,14 @@ class _DropDownItemsState extends State<DropDownItems> {
     dropdownvalue = widget.items[0];
     super.initState();
   }
+
+
   
   
   @override
   Widget build(BuildContext context) {
     // String dropdownvalue = items[0];
+    encodedValues = [];
     return Container(
       height: 72,
       child: Column(
@@ -42,6 +47,10 @@ class _DropDownItemsState extends State<DropDownItems> {
             onChanged: (newValue) {
               setState(() {
                 dropdownvalue = newValue as String;
+                
+                widget.items.forEach((element) {encodedValues.add(0);});
+                encodedValues[widget.items.indexOf(dropdownvalue!)] = 1;
+                widget.function(encodedValues);
               });
             },
           

@@ -4,7 +4,7 @@ class HomeButton extends StatelessWidget {
   final String text;
   final Color color;
   final TextStyle style;
-  Function? function;
+  Function()? function;
 
   HomeButton({Key? key, required this.text, required this.color,required this.style,this.function}) : super(key: key);
   
@@ -13,7 +13,7 @@ class HomeButton extends StatelessWidget {
     final double width = MediaQuery.of(context).size.width;
     
     return ElevatedButton(
-      onPressed: function as Function(),
+      onPressed: function,
       child: Text(text,style: style),
       style: ElevatedButton.styleFrom(
         primary: color,

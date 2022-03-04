@@ -14,16 +14,43 @@ import 'loan_details_screen.dart';
 class BioDataScreen extends StatelessWidget {
   TextTheme  textTheme = TEXT_THEME_DEFAULT;
 
-  // void navPage(){
-  //   Navigator.push(context, MaterialPageRoute(builder: (context) =>  LoanDetails()));
-  // }
-  @override
+ void saveEmploymentStatus(List<int> status){
+   employmentStatus = status;
+ }
+ void saveAccountType(List<int> status){
+   accountType = status;
+ }
+
+void saveEduction(List<int> status){
+   education = status;
+ }
+ void saveBankName(List<int> status){
+   bankName = status;
+ }
+
+ void saveAge(int status){
+   age =status;
+   
+ }
+
+ List<int> employmentStatus =[];
+ List<int> accountType =[];
+ List<int> education=[];
+ List<int> bankName = [];
+ int age =0;
+ Map<String,dynamic>? savedData;
   
+  @override
   Widget build(BuildContext context) {
 
     void navPage(){
-    Navigator.push(context, MaterialPageRoute(builder: (context) =>  LoanDetails()));
-  }
+    savedData ={'employment_status':employmentStatus,
+                'accountType': accountType,
+                'education': education,
+                'bankName':bankName,
+                'age':age};
+    Navigator.pushReplacementNamed(context, LoanDetails.routeName,arguments: savedData);
+    }
 
     return Scaffold(
         body: SafeArea(
@@ -63,25 +90,25 @@ class BioDataScreen extends StatelessWidget {
                       Text('specify exactly as in your passport',style: textTheme.subtitle2),
                       
                       addVerticalSpace(32),
-                      const PlainTitlewithFormField(text: 'First name'),
+                      PlainTitlewithFormField(text: 'First name'),
                       
                       addVerticalSpace(10),
-                      const PlainTitlewithFormField(text:'Second name'),
+                      PlainTitlewithFormField(text:'Second name'),
                       
                       addVerticalSpace(10),
-                      const PlainTitlewithFormField(text:'Age',number:true),
+                      PlainTitlewithFormField(text:'Age',number:true,function: (_){saveAge(int.parse(_));},),
                       
                       addVerticalSpace(10),
-                      const DropDownItems(items: ['Null','Savings','Current','Other'], title: 'Account Type'),
+                      DropDownItems(items: const ['Null','Savings','Current','Other'], title: 'Account Type',function: (_){saveAccountType(_);},),
                       
                       addVerticalSpace(10),
-                      const DropDownItems(items: ['Permanent','Unemployed','Self-Employed','Student','Retire','Contract'], title: 'Employment Status',),
+                      DropDownItems(items: const ['Permanent','Unemployed','Self-Employed','Student','Retire','Contract'], title: 'Employment Status',function: (_){saveEmploymentStatus(_);},),
                       
                       addVerticalSpace(10),
-                      const DropDownItems(items: ['Null','Primary','Secondary','Graduate','Post Graduate'], title: 'Education'),
+                      DropDownItems(items: const ['Null','Primary','Secondary','Graduate','Post Graduate'], title: 'Education',function: (_){saveEduction(_);},),
                       
                       addVerticalSpace(10),
-                      BankNameDropDown(),
+                      BankNameDropDown(function: (_){saveBankName(_);},),
                       
                       addVerticalSpace(32),
                       Center(child: NavigatorButton(function: navPage)),

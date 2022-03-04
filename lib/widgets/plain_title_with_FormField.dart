@@ -5,8 +5,9 @@ import 'package:superlender/utils/constant_functions.dart';
 class PlainTitlewithFormField extends StatelessWidget {
   final String? text;
   final bool? number;
+  Function(String)? function;
 
-  const PlainTitlewithFormField({Key? key, this.text,this.number = false}) : super(key: key);
+  PlainTitlewithFormField({Key? key, this.text,this.number = false,this.function}) : super(key: key);
   
   final TextTheme textTheme = TEXT_THEME_DEFAULT;
   
@@ -20,11 +21,19 @@ class PlainTitlewithFormField extends StatelessWidget {
           Text(text!, style: textTheme.headline3),
           addVerticalSpace(3),
           TextFormField(
+            
             style: textTheme.headline4,
             keyboardType:number!? TextInputType.number: TextInputType.name ,
             decoration: InputDecoration(
               contentPadding: const EdgeInsets.only(left:16)
-            )
+            ),
+            onChanged: (value){
+              if (function != null){
+                function!(value);
+              }else{
+                {}
+              }
+            },
           )
         ],)
     );

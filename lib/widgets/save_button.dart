@@ -3,7 +3,7 @@ import 'package:superlender/utils/constansts.dart';
 import 'package:superlender/utils/constant_functions.dart';
 
 class SaveButton extends StatelessWidget {
-  Function? function;
+  Function()? function;
   SaveButton({Key? key, this.function}) : super(key: key);
   
   @override
@@ -12,7 +12,7 @@ class SaveButton extends StatelessWidget {
     return SizedBox(
       width: 128,
       child: ElevatedButton(
-        onPressed: (){},
+        onPressed: function ?? (){},
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[

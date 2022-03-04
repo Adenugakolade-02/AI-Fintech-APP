@@ -4,6 +4,9 @@ import 'package:superlender/utils/constansts.dart';
 import '../utils/constant_functions.dart';
 
 class BankNameDropDown extends StatefulWidget {
+  Function(List<int>) function;
+  BankNameDropDown({Key? key, required this.function}) : super(key: key);
+  
   @override
   State<BankNameDropDown> createState() => _BankNameDropDownState();
 }
@@ -35,19 +38,20 @@ class _BankNameDropDownState extends State<BankNameDropDown> {
   final TextTheme textTheme = TEXT_THEME_DEFAULT;
 
   dynamic dropDownValue;
+  List<int>? encodedValues;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    // dropDownValue = LogosWithText(bankname: bankWithLogos.entries.toList()[0].key,logo: bankWithLogos.entries.toList()[0].value);
     dropDownValue = bankWithLogos.entries.toList()[0].key;
   }
 
-  // LogosWithText(bankname: bankWithLogos[0].key as String,logo: ,);
+  
 
   @override
   Widget build(BuildContext context) {
+    encodedValues =[];
     return Container(
       height: 72,
       child: Column(
@@ -63,6 +67,9 @@ class _BankNameDropDownState extends State<BankNameDropDown> {
             onChanged: (newValue) {
               setState(() {
                 dropDownValue = newValue ;
+                bankWithLogos.forEach((key, value) {encodedValues!.add(0);});
+                encodedValues![bankWithLogos.entries.toList().indexWhere((element) => element.key==dropDownValue)] = 1;
+                widget.function(encodedValues!);
               });
             },
           

@@ -19,6 +19,10 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(primaryColor: COLOR_WHITE, textTheme: TEXT_THEME_DEFAULT, fontFamily: 'Poppins'
       ),
       home: HomeScreen(),
+      debugShowCheckedModeBanner: false,
+      routes: {
+        LoanDetails.routeName: (context) => LoanDetails()
+      },
     );
   }
 }

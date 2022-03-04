@@ -3,7 +3,7 @@ import 'package:superlender/utils/constansts.dart';
 import 'package:superlender/utils/constant_functions.dart';
 
 class NavigatorButton extends StatelessWidget {
-  Function? function;
+  Function()? function;
   NavigatorButton({Key? key, this.function}) : super(key: key);
   
   @override
@@ -12,7 +12,7 @@ class NavigatorButton extends StatelessWidget {
     return SizedBox(
       width: 150,
       child: ElevatedButton(
-        onPressed: function as Function(),
+        onPressed: function,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[

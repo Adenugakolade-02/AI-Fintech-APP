@@ -16,19 +16,60 @@ import '../widgets/progression_indicator.dart';
 class LoanDetails extends StatefulWidget {
   @override
   State<LoanDetails> createState() => _LoanDetailsState();
+
+  static const routeName = 'loan_screen';
 }
 
 class _LoanDetailsState extends State<LoanDetails> {
   TextTheme  textTheme = TEXT_THEME_DEFAULT;
 
-  bool _isPreviousLoan = false;
-
-  void navPage(){
-    Navigator.push(context, MaterialPageRoute(builder: (context) =>  LoanDetails()));
+  void saveLoanAmount(int value){loanAmount=value;}
+  void saveTermDays(int value){termsDay=value;}
+  void saveCreationDate(int value){createdDate=value;}
+  void saveApprovedDate(int value){approvedDate=value;}
+  void saveTotalAmount(int value){totalAmount=value;}
+  void saveNumberLoans(int value){numberLoans=value;}
+  
+  void dataSaved(){
+    savedData={'loanAmount':loanAmount,
+    'termsDay':termsDay,
+    'createdDate':createdDate,
+    'approvedDate':approvedDate,
+    'totalAmount':totalAmount,
+    'numberLoans':numberLoans};
+    
   }
+  void parseDataToDataBase(){
+    dataSaved();
+    setState(() {
+      savedData!.entries.toList().map((elements) => previousData!.addAll(elements as Map<String,dynamic>));
+    });
+    print(previousData);
+    }
+
+  bool _isPreviousLoan = false;
+  Map<String, dynamic>? previousData;
+  Map<String,dynamic>? savedData;
+  int? loanAmount;
+  int? termsDay;
+  int? createdDate;
+  int? approvedDate;
+  int totalAmount=0;
+  int numberLoans =0;
+
+  
+  @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
+    previousData = ModalRoute.of(context)!.settings.arguments as Map<String,dynamic>;
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       body: SafeArea(
           child: LayoutBuilder(
@@ -63,13 +104,13 @@ class _LoanDetailsState extends State<LoanDetails> {
                       addVerticalSpace(2),
                       Text('enter loan details correctly',style: textTheme.subtitle2),
                       addVerticalSpace(32),
-                      const PlainTitlewithFormField(text: 'Loan Amount',number: true,),
+                      PlainTitlewithFormField(text: 'Loan Amount',number: true,function: (_){saveLoanAmount(int.parse(_));},),
                       addVerticalSpace(10),
-                      const PlainTitlewithFormField(text:'Term Days',number: true,),
+                      PlainTitlewithFormField(text:'Term Days',number: true,function: (_){saveTermDays(int.parse(_));}),
                       addVerticalSpace(10),
-                      const PlainTitlewithFormField(text:'Creation Date',number:true),
+                      PlainTitlewithFormField(text:'Creation Date',number:true,function: (_){saveCreationDate(int.parse(_));}),
                       addVerticalSpace(10),
-                      const PlainTitlewithFormField(text:'Approved Date',number:true),
+                      PlainTitlewithFormField(text:'Approved Date',number:true,function: (_){saveApprovedDate(int.parse(_));}),
                       addVerticalSpace(10),
                       
                       Row(
@@ -80,21 +121,22 @@ class _LoanDetailsState extends State<LoanDetails> {
                             value: _isPreviousLoan, onChanged: (newValue){
                               setState(() {
                                 _isPreviousLoan = newValue!;
+                                
                               });
                             }),
                         ],
                       ),
                       
                       if (_isPreviousLoan) ...[
-                      const PlainTitlewithFormField(text: 'Total Amount',number: true,),
+                      PlainTitlewithFormField(text: 'Total Amount',number: true,function: (_){saveTotalAmount(int.parse(_));}),
                       addVerticalSpace(10),
-                      const PlainTitlewithFormField(text:'Number Of Loans',number: true,),
+                      PlainTitlewithFormField(text:'Number Of Loans',number: true,function: (_){saveNumberLoans(int.parse(_));}),
                       addVerticalSpace(10),
                       ] else...[
                         Container()
                       ],
                       
-                      Center(child: SaveButton()),
+                      Center(child: SaveButton(function: parseDataToDataBase,)),
                       addVerticalSpace(10)
                       ],)
                   ),
