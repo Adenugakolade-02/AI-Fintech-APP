@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:superlender/utils/constansts.dart';
 import 'package:superlender/widgets/bankname_dropdown_menu.dart';
 import 'package:superlender/widgets/company_name_headings.dart';
+import 'package:superlender/widgets/date_with_time_picker.dart';
 import 'package:superlender/widgets/drop_downItems.dart';
 import 'package:superlender/widgets/navigator_button.dart';
 import 'package:superlender/widgets/profileinfo_subheading.dart';
@@ -25,8 +26,8 @@ class _LoanDetailsState extends State<LoanDetails> {
 
   void saveLoanAmount(int value){loanAmount=value;}
   void saveTermDays(int value){termsDay=value;}
-  void saveCreationDate(int value){createdDate=value;}
-  void saveApprovedDate(int value){approvedDate=value;}
+  void saveCreationDate(String value){createdDate=value;}
+  void saveApprovedDate(String value){approvedDate=value;}
   void saveTotalAmount(int value){totalAmount=value;}
   void saveNumberLoans(int value){numberLoans=value;}
   
@@ -49,8 +50,8 @@ class _LoanDetailsState extends State<LoanDetails> {
   Map<String,dynamic>? savedData;
   int? loanAmount;
   int? termsDay;
-  int? createdDate;
-  int? approvedDate;
+  String? createdDate;
+  String? approvedDate;
   int totalAmount=0;
   int numberLoans =0;
 
@@ -96,18 +97,27 @@ class _LoanDetailsState extends State<LoanDetails> {
                       addVerticalSpace(32),
 
                       const Divider(color: Color(0xFFBBBFC1),),
+                      
                       addVerticalSpace(32),
                       Text('Loan Info',style: textTheme.headline2),
+                      
                       addVerticalSpace(2),
                       Text('enter loan details correctly',style: textTheme.subtitle2),
+                      
                       addVerticalSpace(32),
                       PlainTitlewithFormField(text: 'Loan Amount',number: true,function: (_){saveLoanAmount(int.parse(_));},),
+                      
                       addVerticalSpace(10),
                       PlainTitlewithFormField(text:'Term Days',number: true,function: (_){saveTermDays(int.parse(_));}),
+                      
                       addVerticalSpace(10),
-                      PlainTitlewithFormField(text:'Creation Date',number:true,function: (_){saveCreationDate(int.parse(_));}),
+                      DateWithTimePicker(title: 'Creation Date', function: (_){saveCreationDate(_);}),
+                      // PlainTitlewithFormField(text:'Creation Date',number:true,function: (_){saveCreationDate(int.parse(_));}),
+                      
                       addVerticalSpace(10),
-                      PlainTitlewithFormField(text:'Approved Date',number:true,function: (_){saveApprovedDate(int.parse(_));}),
+                      DateWithTimePicker(title: 'Approved Date', function: (_){saveApprovedDate(_);}),
+                      // PlainTitlewithFormField(text:'Approved Date',number:true,function: (_){saveApprovedDate(int.parse(_));}),
+                      
                       addVerticalSpace(10),
                       
                       Row(
