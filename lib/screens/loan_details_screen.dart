@@ -41,10 +41,7 @@ class _LoanDetailsState extends State<LoanDetails> {
   }
   void parseDataToDataBase(){
     dataSaved();
-    setState(() {
-      savedData!.entries.toList().map((elements) => previousData!.addAll(elements as Map<String,dynamic>));
-    });
-    print(previousData);
+    savedData!.forEach((key, value) {previousData!.addAll({key:value});});
     }
 
   bool _isPreviousLoan = false;
