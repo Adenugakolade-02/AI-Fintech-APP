@@ -4,7 +4,7 @@ import 'package:superlender/utils/constansts.dart';
 import '../utils/constant_functions.dart';
 
 class DateWithTimePicker extends StatefulWidget {
-  final Function(String) function;
+  final Function(int) function;
   final String title;
 
   const DateWithTimePicker({Key? key,required this.title, required this.function}) : super(key: key);
@@ -17,7 +17,6 @@ class _DateWithTimePickerState extends State<DateWithTimePicker> {
 
   final dateTimeController = TextEditingController();
 
-  DateTime? utc;
   DateTime selectedDate = DateTime.now();
   TimeOfDay selectedTime = TimeOfDay.now();
 
@@ -25,13 +24,21 @@ class _DateWithTimePickerState extends State<DateWithTimePicker> {
     DateTime? picked = await showDatePicker(
         context: context,
         initialDate: selectedDate,
+        initialDatePickerMode: DatePickerMode.year,
+        builder: (context, child){
+          return Theme(
+            data: ThemeData.light(),
+            child: child!,
+          );
+        },
         firstDate: DateTime(2016),
         lastDate: DateTime(2023));
-    if (picked != null)
-      setState(() {
-        selectedDate = picked;
-        _selectTime(context);
-      });
+        if (picked != null)
+          setState(() {
+            selectedDate = picked;
+            _selectTime(context);
+          });
+
   }
 
   _selectTime(BuildContext context) async {
@@ -40,13 +47,11 @@ class _DateWithTimePickerState extends State<DateWithTimePicker> {
       initialTime: selectedTime,
       initialEntryMode: TimePickerEntryMode.dial,
     );
-    if (timeOfDay != null && timeOfDay != selectedTime) {
+    if (timeOfDay != null) {
       setState(() {
         selectedTime = timeOfDay;
-        utc = DateTime(selectedDate.year, selectedDate.month, selectedDate.day,
-            selectedTime.hour, selectedDate.minute);
-        dateTimeController.text = utc.toString();
-        widget.function(dateTimeController.text);
+        dateTimeController.text= DateTime(selectedDate.year, selectedDate.month, selectedDate.day,selectedTime.hour, selectedDate.minute,selectedDate.second).toString();
+        widget.function(selectedTime.hour);
       });
     }
   }

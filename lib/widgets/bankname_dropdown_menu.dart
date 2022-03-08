@@ -4,7 +4,7 @@ import 'package:superlender/utils/constansts.dart';
 import '../utils/constant_functions.dart';
 
 class BankNameDropDown extends StatefulWidget {
-  Function(List<int>) function;
+  Function(int) function;
   BankNameDropDown({Key? key, required this.function}) : super(key: key);
   
   @override
@@ -34,6 +34,26 @@ class _BankNameDropDownState extends State<BankNameDropDown> {
     'Unity Bank': 'assets/images/unity bank.png',
     'Standard Chartered': 'assets/images/standard charted.png',
   };
+
+  Map<String,int> labelEncoder = {'Diamond Bank': 1,
+    'GT Bank': 6,
+    'EcoBank': 2,
+    'First Bank': 5,
+    'null': 18,
+    'Access Bank': 0,
+    'UBA': 13,
+    'Union Bank': 14,
+    'FCMB': 3,
+    'Zenith Bank': 17,
+    'Stanbic IBTC': 10,
+    'Fidelity Bank': 4,
+    'Wema Bank': 16,
+    'Sterling Bank': 12,
+    'Skye Bank': 9,
+    'Keystone Bank': 8,
+    'Heritage Bank': 7,
+    'Unity Bank': 15,
+    'Standard Chartered': 11};
 
   final TextTheme textTheme = TEXT_THEME_DEFAULT;
 
@@ -67,9 +87,10 @@ class _BankNameDropDownState extends State<BankNameDropDown> {
             onChanged: (newValue) {
               setState(() {
                 dropDownValue = newValue ;
-                bankWithLogos.forEach((key, value) {encodedValues!.add(0);});
-                encodedValues![bankWithLogos.entries.toList().indexWhere((element) => element.key==dropDownValue)] = 1;
-                widget.function(encodedValues!);
+                // bankWithLogos.forEach((key, value) {encodedValues!.add(0);});
+                // encodedValues![bankWithLogos.entries.toList().indexWhere((element) => element.key==dropDownValue)] = 1;
+                int encodeValue = labelEncoder.entries.firstWhere((element) => element.key==dropDownValue).value;
+                widget.function(encodeValue);
               });
             },
           

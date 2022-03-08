@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:superlender/model/database.dart';
 import 'package:superlender/utils/constansts.dart';
 import 'package:superlender/widgets/bankname_dropdown_menu.dart';
 import 'package:superlender/widgets/company_name_headings.dart';
@@ -25,7 +26,7 @@ class BioDataScreen extends StatelessWidget {
 void saveEduction(List<int> status){
    education = status;
  }
- void saveBankName(List<int> status){
+ void saveBankName(int status){
    bankName = status;
  }
 
@@ -37,7 +38,7 @@ void saveEduction(List<int> status){
  List<int> employmentStatus =[];
  List<int> accountType =[];
  List<int> education=[];
- List<int> bankName = [];
+ int? bankName;
  int age =0;
  Map<String,dynamic>? savedData;
   
@@ -50,7 +51,8 @@ void saveEduction(List<int> status){
                 'education': education,
                 'bankName':bankName,
                 'age':age};
-    Navigator.pushReplacementNamed(context, LoanDetails.routeName,arguments: savedData);
+    experimentingDatabase().storeScreenOne(savedData!);
+    Navigator.pushReplacementNamed(context, LoanDetails.routeName);
     }
 
     return Scaffold(
@@ -100,13 +102,13 @@ void saveEduction(List<int> status){
                       PlainTitlewithFormField(text:'Age',number:true,function: (_){saveAge(int.parse(_));},),
                       
                       addVerticalSpace(10),
-                      DropDownItems(items: const ['Null','Savings','Current','Other'], title: 'Account Type',function: (_){saveAccountType(_);},),
+                      DropDownItems(items: const ['Other', 'Savings', 'null', 'Current'], title: 'Account Type',function: (_){saveAccountType(_);},),
                       
                       addVerticalSpace(10),
-                      DropDownItems(items: const ['Permanent','Unemployed','Self-Employed','Student','Retire','Contract'], title: 'Employment Status',function: (_){saveEmploymentStatus(_);},),
+                      DropDownItems(items: const ['Permanent', 'null', 'Unemployed', 'Self-Employed', 'Student','Retired', 'Contract'], title: 'Employment Status',function: (_){saveEmploymentStatus(_);},),
                       
                       addVerticalSpace(10),
-                      DropDownItems(items: const ['Null','Primary','Secondary','Graduate','Post Graduate'], title: 'Education',function: (_){saveEduction(_);},),
+                      DropDownItems(items: const ['Post-Graduate', 'Graduate', 'null', 'Primary', 'Secondary'], title: 'Education',function: (_){saveEduction(_);},),
                       
                       addVerticalSpace(10),
                       BankNameDropDown(function: (_){saveBankName(_);},),
