@@ -20,10 +20,9 @@ def home():
 def scale_data(s_data: ScaleData):
     data = dict(s_data)['data']
     
+
     result  = standard_scale.transform(np.array(data).reshape(1,-1))
-    
-    return {'result':result.tolist()}
-@app.post('/predict')
+    return {'result':result.tolist()[0]}
 
 if __name__ == '__main__':
     uvicorn.run(app)
