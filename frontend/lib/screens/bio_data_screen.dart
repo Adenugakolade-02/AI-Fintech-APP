@@ -51,7 +51,7 @@ void saveEduction(List<int> status){
                 'education': education,
                 'bankName':bankName,
                 'age':age};
-    experimentingDatabase().storeScreenOne(savedData!);
+    ExperimentingDatabase().storeScreenOne(savedData!);
     Navigator.pushReplacementNamed(context, LoanDetails.routeName);
     }
 

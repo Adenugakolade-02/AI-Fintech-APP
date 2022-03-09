@@ -49,7 +49,7 @@ class _LoanDetailsState extends State<LoanDetails> {
     dataSaved();
     // savedData!.forEach((key, value) {previousData!.addAll({key:value});});
     // print(savedData);
-    experimentingDatabase().storeScreenTwo(savedData!);
+    ExperimentingDatabase().storeScreenTwo(savedData!);
     }
 
   bool _isPreviousLoan = false;

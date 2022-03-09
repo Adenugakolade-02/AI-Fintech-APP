@@ -1,3 +1,5 @@
+import 'api_management.dart';
+
 class DataBaseSystem{
   dynamic loannumber = '';
   dynamic loanamount= '';
@@ -65,6 +67,56 @@ class DataBaseSystem{
     hour_of_approval= mapHours(data['approvedDate']);
   }
 
+  void standardScaler(dynamic scale) async{
+    List items =[loannumber,loanamount,totaldue,termdays,birthdate,daily_rate,hour_of_creation,hour_of_approval,count,sum,amount_difference];
+    List result = await scale(items);
+    loannumber= result[0];
+    loanamount= result[1];
+    totaldue= result[2];
+    termdays= result[3];
+    birthdate=  result[4];
+    daily_rate= result[5];
+    hour_of_creation= result[6];
+    hour_of_approval= result[7];
+    count=result[8];
+    sum=  result[9];
+    amount_difference=  result[10];
+  }
+
+  Future<String> getPrediction(Function(List) getPred) async{
+    List features = [
+    loannumber,
+    loanamount,
+    totaldue,
+    termdays,
+    birthdate,
+    bank_account_type_1,
+    bank_account_type_2,
+    bank_account_type_3,
+    bank_account_type_4,
+    bank_name_clients,
+    employment_status_clients_1,
+    employment_status_clients_2,
+    employment_status_clients_3,
+    employment_status_clients_4,
+    employment_status_clients_5,
+    employment_status_clients_6,
+    employment_status_clients_7,
+    level_of_education_clients_1,
+    level_of_education_clients_2,
+    level_of_education_clients_3,
+    level_of_education_clients_4,
+    level_of_education_clients_5,
+    daily_rate,
+    hour_of_creation,
+    hour_of_approval,
+    count,
+    sum,
+    amount_difference
+    ];
+    return await getPred(features);
+  }
+
   int mapHours(int hourOfTheDay){
     if([0,1,2,3,4,5].contains(hourOfTheDay)){
       return 0;
@@ -95,14 +147,9 @@ class DataBaseSystem{
     double dailyRate = interestRate/termDays;
     return dailyRate;
   }
-
-  void standardScaler(){
-    List<dynamic> items = [loannumber,loanamount,totaldue,termdays,birthdate,daily_rate,
-                          hour_of_creation,hour_of_approval,count,sum,amount_difference];
-  }
 }
 
-class experimentingDatabase{
+class ExperimentingDatabase{
   DataBaseSystem appBase = DataBaseSystem();
 
   void storeScreenOne(Map<String,dynamic> data){
@@ -111,5 +158,15 @@ class experimentingDatabase{
   
   void storeScreenTwo(Map<String,dynamic> data){
     appBase.parseScreenTwoData(data);
+    scaler();
   }
+  void scaler() async{
+    appBase.standardScaler(ApiManagement().scaleData);
+  }
+   
+  predict()async{
+    String result = await appBase.getPrediction(ApiManagement().predictData);
+    return result;
+  }
+
 }
