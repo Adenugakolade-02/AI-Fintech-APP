@@ -16,12 +16,15 @@ class _DropDownItemsState extends State<DropDownItems> {
   TextTheme textTheme = TEXT_THEME_DEFAULT;
   String? dropdownvalue;
 
-  List<int> encodedValues =[];
+  List<int>? encodedValues;
   
   @override
   void initState() {
     // TODO: implement initState
     dropdownvalue = widget.items[0];
+    // widget.items.forEach((element) {encodedValues!.add(0);});
+    // encodedValues![widget.items.indexOf(dropdownvalue!)] = 1;
+    // widget.function(encodedValues!);
     super.initState();
   }
 
@@ -30,8 +33,10 @@ class _DropDownItemsState extends State<DropDownItems> {
   
   @override
   Widget build(BuildContext context) {
-    // String dropdownvalue = items[0];
     encodedValues = [];
+    widget.items.forEach((element) {encodedValues!.add(0);});
+    encodedValues![widget.items.indexOf(dropdownvalue!)] = 1;
+    widget.function(encodedValues!);
     return Container(
       height: 72,
       child: Column(
@@ -48,9 +53,9 @@ class _DropDownItemsState extends State<DropDownItems> {
               setState(() {
                 dropdownvalue = newValue as String;
                 
-                widget.items.forEach((element) {encodedValues.add(0);});
-                encodedValues[widget.items.indexOf(dropdownvalue!)] = 1;
-                widget.function(encodedValues);
+                widget.items.forEach((element) {encodedValues!.add(0);});
+                encodedValues![widget.items.indexOf(dropdownvalue!)] = 1;
+                widget.function(encodedValues!);
               });
             },
           

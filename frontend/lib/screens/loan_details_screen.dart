@@ -119,23 +119,23 @@ class _LoanDetailsState extends State<LoanDetails> {
                       Text('enter loan details correctly',style: textTheme.subtitle2),
                       
                       addVerticalSpace(32),
-                      PlainTitlewithFormField(text: 'Loan Amount',number: true,function: (_){saveLoanAmount(int.parse(_));},),
+                      PlainTitlewithFormField(text: 'Loan Amount',hintText:'Enter requested Loan Amount',number: true,function: (_){saveLoanAmount(int.parse(_));},),
                       
                       addVerticalSpace(10),
-                      PlainTitlewithFormField(text:'Term Days',number: true,function: (_){saveTermDays(int.parse(_));}),
+                      PlainTitlewithFormField(text:'Term Days',hintText: 'Enter Loan maturity date',number: true,function: (_){saveTermDays(int.parse(_));}),
 
                       addVerticalSpace(10),
-                      PlainTitlewithFormField(text: 'Total Due',number: true,function: (_){saveTotalDue(int.parse(_));},),
+                      PlainTitlewithFormField(text: 'Total Due',hintText: 'Loan amount with due',number: true,function: (_){saveTotalDue(int.parse(_));},),
 
                       addVerticalSpace(10),
                       PlainTitlewithFormField(text: 'Number of Current Loan',number: true,function: (_){saveCurrentNumberOfLoans(int.parse(_));},),
                       
                       addVerticalSpace(10),
-                      DateWithTimePicker(title: 'Creation Date', function: (_){saveCreationDate(_);}),
+                      DateWithTimePicker(title: 'Creation Date',hintText: 'Loan Creation Date', function: (_){saveCreationDate(_);}),
                       
                       
                       addVerticalSpace(10),
-                      DateWithTimePicker(title: 'Approved Date', function: (_){saveApprovedDate(_);}),
+                      DateWithTimePicker(title: 'Approved Date',hintText: 'Loan Approval Date' ,function: (_){saveApprovedDate(_);}),
                       
                       addVerticalSpace(10),
                       
@@ -154,7 +154,7 @@ class _LoanDetailsState extends State<LoanDetails> {
                       ),
                       
                       if (_isPreviousLoan) ...[
-                      PlainTitlewithFormField(text: 'Total Amount',number: true,function: (_){saveTotalAmount(int.parse(_));}),
+                      PlainTitlewithFormField(text: 'Total Amount',hintText: 'Amount of Previous Loans',number: true,function: (_){saveTotalAmount(int.parse(_));}),
                       addVerticalSpace(10),
                       PlainTitlewithFormField(text:'Counts Of Previous Loan',number: true,function: (_){savePreviousNumberLoans(int.parse(_));}),
                       addVerticalSpace(10),

@@ -107,13 +107,13 @@ void saveEduction(List<int> status){
                       Text('specify exactly as in your passport',style: textTheme.subtitle2),
                       
                       addVerticalSpace(32),
-                      PlainTitlewithFormField(text: 'First name'),
+                      PlainTitlewithFormField(text: 'First name',hintText: 'Enter your first name',),
                       
                       addVerticalSpace(10),
-                      PlainTitlewithFormField(text:'Second name'),
+                      PlainTitlewithFormField(text:'Second name',hintText: 'Enter second name',),
                       
                       addVerticalSpace(10),
-                      PlainTitlewithFormField(text:'Age',number:true,function: (_){saveAge(int.parse(_));},),
+                      PlainTitlewithFormField(text:'Age',number:true,hintText:'Enter your age',function: (_){saveAge(int.parse(_));},),
                       
                       addVerticalSpace(10),
                       DropDownItems(items: const ['Other', 'Savings', 'null', 'Current'], title: 'Account Type',function: (_){saveAccountType(_);},),

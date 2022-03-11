@@ -58,20 +58,22 @@ class _BankNameDropDownState extends State<BankNameDropDown> {
   final TextTheme textTheme = TEXT_THEME_DEFAULT;
 
   dynamic dropDownValue;
-  List<int>? encodedValues;
+  
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     dropDownValue = bankWithLogos.entries.toList()[0].key;
+    // widget.function(labelEncoder.entries.firstWhere((element) => element.key==dropDownValue).value);
+
   }
 
   
 
   @override
   Widget build(BuildContext context) {
-    encodedValues =[];
+    widget.function(labelEncoder.entries.firstWhere((element) => element.key==dropDownValue).value);
     return Container(
       height: 72,
       child: Column(
@@ -87,8 +89,6 @@ class _BankNameDropDownState extends State<BankNameDropDown> {
             onChanged: (newValue) {
               setState(() {
                 dropDownValue = newValue ;
-                // bankWithLogos.forEach((key, value) {encodedValues!.add(0);});
-                // encodedValues![bankWithLogos.entries.toList().indexWhere((element) => element.key==dropDownValue)] = 1;
                 int encodeValue = labelEncoder.entries.firstWhere((element) => element.key==dropDownValue).value;
                 widget.function(encodeValue);
               });

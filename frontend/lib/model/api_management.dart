@@ -34,7 +34,7 @@ class ApiManagement{
         dynamic prediction = json.decode(predictResponse.body);
         return prediction['prediction result'];
       }
-      print('This is predict response status code ${predictResponse.statusCode}');
+      
     }
     catch(e){
       print(e);
