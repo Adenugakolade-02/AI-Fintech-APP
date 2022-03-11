@@ -30,7 +30,7 @@ class DataBaseSystem{
   dynamic sum= '';
   dynamic amount_difference = '';
 
-
+  
   void parseScreenOneData(Map<String,dynamic> data){
     employment_status_clients_1 = data['employment_status'][0];
     employment_status_clients_2= data['employment_status'][1];
@@ -50,7 +50,6 @@ class DataBaseSystem{
     level_of_education_clients_5= data['education'][4];
     bank_name_clients= data['bankName'];
     birthdate=data['age'];
-  
   }
 
 
@@ -69,7 +68,7 @@ class DataBaseSystem{
 
   void standardScaler(dynamic scale) async{
     List items =[loannumber,loanamount,totaldue,termdays,birthdate,daily_rate,hour_of_creation,hour_of_approval,count,sum,amount_difference];
-    List result = await scale(items);
+    List<dynamic> result = await scale([items]);
     loannumber= result[0];
     loanamount= result[1];
     totaldue= result[2];
@@ -83,8 +82,8 @@ class DataBaseSystem{
     amount_difference=  result[10];
   }
 
-  Future<String> getPrediction(Function(List) getPred) async{
-    List features = [
+  Future<String> getPrediction(Function(List<List<num>>) getPred) async{
+    List<num> features = [
     loannumber,
     loanamount,
     totaldue,
@@ -114,7 +113,8 @@ class DataBaseSystem{
     sum,
     amount_difference
     ];
-    return await getPred(features);
+    
+    return await getPred([features]);
   }
 
   int mapHours(int hourOfTheDay){
@@ -135,6 +135,9 @@ class DataBaseSystem{
       double meanAmountBorrowedPerloan = pastLoans/numberOfPastloans;
       double loanDiff = borrowedLoan - meanAmountBorrowedPerloan;
       double percentageDiff = (loanDiff/borrowedLoan) * 100;
+      if(percentageDiff.isNaN){
+        return 0;
+      }
         return percentageDiff;
     }
     catch (e){
@@ -151,21 +154,24 @@ class DataBaseSystem{
 
 class ExperimentingDatabase{
   DataBaseSystem appBase = DataBaseSystem();
+  ApiManagement apiManager = ApiManagement();
 
   void storeScreenOne(Map<String,dynamic> data){
     appBase.parseScreenOneData(data);
   }
   
-  void storeScreenTwo(Map<String,dynamic> data){
+  void storeScreenTwo(Map<String,dynamic> data) async{
     appBase.parseScreenTwoData(data);
     scaler();
+    String k = await predict();
+    print(k);
   }
   void scaler() async{
-    appBase.standardScaler(ApiManagement().scaleData);
+    appBase.standardScaler(apiManager.scaleData);
   }
    
   predict()async{
-    String result = await appBase.getPrediction(ApiManagement().predictData);
+    String result = await appBase.getPrediction(apiManager.predictData);
     return result;
   }
 

@@ -23,6 +23,7 @@ class LoanDetails extends StatefulWidget {
 }
 
 class _LoanDetailsState extends State<LoanDetails> {
+  ExperimentingDatabase instanceOFDatabase = ExperimentingDatabase();
   TextTheme  textTheme = TEXT_THEME_DEFAULT;
 
   void saveLoanAmount(int value){loanAmount=value;}
@@ -49,8 +50,10 @@ class _LoanDetailsState extends State<LoanDetails> {
     dataSaved();
     // savedData!.forEach((key, value) {previousData!.addAll({key:value});});
     // print(savedData);
-    ExperimentingDatabase().storeScreenTwo(savedData!);
+    instanceOFDatabase.storeScreenTwo(savedData!);
     }
+
+  
 
   bool _isPreviousLoan = false;
   // Map<String, dynamic>? previousData;
@@ -65,12 +68,13 @@ class _LoanDetailsState extends State<LoanDetails> {
   int numberLoans =0;
 
   
-  // @override
-  // void didChangeDependencies() {
-  //   // TODO: implement didChangeDependencies
-  //   super.didChangeDependencies();
-  //   previousData = ModalRoute.of(context)!.settings.arguments as Map<String,dynamic>;
-  // }
+  @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
+    Map<String, dynamic>previousData = ModalRoute.of(context)!.settings.arguments as Map<String,dynamic>;
+    instanceOFDatabase.storeScreenOne(previousData);
+  }
 
 
 

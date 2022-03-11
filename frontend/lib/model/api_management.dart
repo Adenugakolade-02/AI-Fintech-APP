@@ -13,7 +13,12 @@ class ApiManagement{
     
     try{
       if(scaleResponse.statusCode==200){
-        return json.decode(scaleResponse.body);
+        print('Sucess');
+        Map<String,dynamic> scaleResult = json.decode(scaleResponse.body);
+        return scaleResult['result'];
+      }
+      else{
+        print('This is scale response status code ${scaleResponse.statusCode}');
       }
     }
     catch(e){
@@ -26,8 +31,10 @@ class ApiManagement{
     
     try{
       if(predictResponse.statusCode==200){
-        return json.decode(predictResponse.body);
+        dynamic prediction = json.decode(predictResponse.body);
+        return prediction['prediction result'];
       }
+      print('This is predict response status code ${predictResponse.statusCode}');
     }
     catch(e){
       print(e);

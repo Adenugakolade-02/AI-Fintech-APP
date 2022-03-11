@@ -14,11 +14,15 @@ import '../widgets/progression_indicator.dart';
 import 'loan_details_screen.dart';
 
 class BioDataScreen extends StatelessWidget {
+  
+
+
   TextTheme  textTheme = TEXT_THEME_DEFAULT;
 
  void saveEmploymentStatus(List<int> status){
    employmentStatus = status;
  }
+
  void saveAccountType(List<int> status){
    accountType = status;
  }
@@ -26,6 +30,7 @@ class BioDataScreen extends StatelessWidget {
 void saveEduction(List<int> status){
    education = status;
  }
+
  void saveBankName(int status){
    bankName = status;
  }
@@ -36,24 +41,33 @@ void saveEduction(List<int> status){
  }
 
  List<int> employmentStatus =[];
- List<int> accountType =[];
- List<int> education=[];
- int? bankName;
- int age =0;
- Map<String,dynamic>? savedData;
-  
-  @override
-  Widget build(BuildContext context) {
 
-    void navPage(){
-    savedData ={'employment_status':employmentStatus,
+ List<int> accountType =[];
+
+ List<int> education=[];
+
+ int? bankName;
+
+ int age =0;
+
+ Map<String,dynamic>? savedData;
+
+ void dataSaved(){
+   savedData ={'employment_status':employmentStatus,
                 'accountType': accountType,
                 'education': education,
                 'bankName':bankName,
                 'age':age};
-    ExperimentingDatabase().storeScreenOne(savedData!);
-    Navigator.pushReplacementNamed(context, LoanDetails.routeName);
-    }
+ }
+
+ void navPage(BuildContext context){
+    dataSaved();
+    // ExperimentingDatabase().storeScreenOne(savedData!);
+    Navigator.pushReplacementNamed(context, LoanDetails.routeName,arguments: savedData);}
+    
+
+  @override
+  Widget build(BuildContext context) {
 
     return Scaffold(
         body: SafeArea(
@@ -114,7 +128,7 @@ void saveEduction(List<int> status){
                       BankNameDropDown(function: (_){saveBankName(_);},),
                       
                       addVerticalSpace(32),
-                      Center(child: NavigatorButton(function: navPage)),
+                      Center(child: NavigatorButton(function:()=>navPage(context))),
                       
                       addVerticalSpace(10),
                     
