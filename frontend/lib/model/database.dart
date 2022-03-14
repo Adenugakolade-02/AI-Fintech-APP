@@ -163,14 +163,13 @@ class ExperimentingDatabase{
   void storeScreenTwo(Map<String,dynamic> data) async{
     appBase.parseScreenTwoData(data);
     scaler();
-    String k = await predict();
-    print(k);
   }
   void scaler() async{
     appBase.standardScaler(apiManager.scaleData);
   }
    
   predict()async{
+    
     String result = await appBase.getPrediction(apiManager.predictData);
     return result;
   }

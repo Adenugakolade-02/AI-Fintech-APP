@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:superlender/model/database.dart';
 import 'package:superlender/utils/constansts.dart';
@@ -13,10 +15,15 @@ import '../utils/constant_functions.dart';
 import '../widgets/progression_indicator.dart';
 import 'loan_details_screen.dart';
 
-class BioDataScreen extends StatelessWidget {
+class BioDataScreen extends StatefulWidget {
   
 
 
+  @override
+  State<BioDataScreen> createState() => _BioDataScreenState();
+}
+
+class _BioDataScreenState extends State<BioDataScreen> {
   TextTheme  textTheme = TEXT_THEME_DEFAULT;
 
  void saveEmploymentStatus(List<int> status){
@@ -40,6 +47,8 @@ void saveEduction(List<int> status){
    
  }
 
+ final _formKey = GlobalKey<FormState>();
+
  List<int> employmentStatus =[];
 
  List<int> accountType =[];
@@ -60,11 +69,29 @@ void saveEduction(List<int> status){
                 'age':age};
  }
 
+ dynamic textValidator(String value){
+   if(value.isEmpty||value == null){
+     return "Enter some text";
+   }
+   return null;
+ }
+
+ dynamic numbersValidator(String value){
+   if(value.isEmpty||value == null){
+     return "Please Enter some number";
+   }
+   else if(num.tryParse(value)==null){
+     return "Please enter a valid number";
+   }
+   else if(num.tryParse(value)!.isNegative){
+     return "Please enter a positive number";
+   }
+   return null;
+ }
+
  void navPage(BuildContext context){
     dataSaved();
-    // ExperimentingDatabase().storeScreenOne(savedData!);
     Navigator.pushReplacementNamed(context, LoanDetails.routeName,arguments: savedData);}
-    
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +113,7 @@ void saveEduction(List<int> status){
                 Container(
                   height: constraints.maxHeight-120,
                   child: SingleChildScrollView(
-                    child : Column(
+                      child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                       addVerticalSpace(20),
@@ -106,14 +133,15 @@ void saveEduction(List<int> status){
                       addVerticalSpace(2),
                       Text('specify exactly as in your passport',style: textTheme.subtitle2),
                       
+                      
                       addVerticalSpace(32),
-                      PlainTitlewithFormField(text: 'First name',hintText: 'Enter your first name',),
+                      PlainTitlewithFormField(text: 'First name',hintText: 'Enter your first name',validateForm: (_)=>textValidator(_),),
+                      
+                      addVerticalSpace(34),
+                      PlainTitlewithFormField(text:'Second name',hintText: 'Enter second name',validateForm: (_)=>textValidator(_)),
                       
                       addVerticalSpace(10),
-                      PlainTitlewithFormField(text:'Second name',hintText: 'Enter second name',),
-                      
-                      addVerticalSpace(10),
-                      PlainTitlewithFormField(text:'Age',number:true,hintText:'Enter your age',function: (_){saveAge(int.parse(_));},),
+                      PlainTitlewithFormField(text:'Age',number:true,hintText:'Enter your age',function: (_){saveAge(int.parse(_));},validateForm: (_)=>numbersValidator(_),),
                       
                       addVerticalSpace(10),
                       DropDownItems(items: const ['Other', 'Savings', 'null', 'Current'], title: 'Account Type',function: (_){saveAccountType(_);},),
@@ -132,7 +160,7 @@ void saveEduction(List<int> status){
                       
                       addVerticalSpace(10),
                     
-                      ],)
+                      ],),
                   ),
                 )
               ]),

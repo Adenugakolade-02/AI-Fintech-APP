@@ -93,6 +93,7 @@ class _BankNameDropDownState extends State<BankNameDropDown> {
                 widget.function(encodeValue);
               });
             },
+            
           
             decoration: const InputDecoration(
               contentPadding:  EdgeInsets.only(left:16)
@@ -122,7 +123,7 @@ class LogosWithText extends StatelessWidget {
           width: 40,
           child: Image.asset(logo,fit: BoxFit.contain)
         ),
-        addVerticalSpace(7),
+        addVerticalSpace(10),
         Text(bankname,style: textTheme.headline4)
       ],
     );

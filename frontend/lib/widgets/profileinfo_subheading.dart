@@ -12,7 +12,7 @@ class ProfileInfoSubHeadings extends StatelessWidget {
           width: width,
           child: FittedBox(
                 child: Text(
-              "Fill in the data for profile. It will take a",style: textTheme.subtitle1,
+              "Fill in the details for loan application,",style: textTheme.subtitle1,
             ),
           ),
         ),
@@ -20,7 +20,7 @@ class ProfileInfoSubHeadings extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal:24),
           width: width,
           child: FittedBox(
-            child: Text('of minutes. You only need a passport',style: textTheme.subtitle1,)))
+            child: Text('It will take a couple of minutes',style: textTheme.subtitle1,)))
       ],
     );
   }

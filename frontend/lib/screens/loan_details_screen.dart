@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:superlender/model/database.dart';
 import 'package:superlender/utils/constansts.dart';
+import 'package:superlender/widgets/alert_function.dart';
 import 'package:superlender/widgets/bankname_dropdown_menu.dart';
 import 'package:superlender/widgets/company_name_headings.dart';
 import 'package:superlender/widgets/date_with_time_picker.dart';
@@ -24,7 +25,9 @@ class LoanDetails extends StatefulWidget {
 
 class _LoanDetailsState extends State<LoanDetails> {
   ExperimentingDatabase instanceOFDatabase = ExperimentingDatabase();
+  
   TextTheme  textTheme = TEXT_THEME_DEFAULT;
+  
 
   void saveLoanAmount(int value){loanAmount=value;}
   void saveTermDays(int value){termsDay=value;}
@@ -34,6 +37,7 @@ class _LoanDetailsState extends State<LoanDetails> {
   void savePreviousNumberLoans(int value){numberLoans=value;}
   void saveTotalDue(int value){totalDue=value;}
   void saveCurrentNumberOfLoans(int value){numberOfCurrentLoan=value;}
+  
   void dataSaved(){
     savedData={'loanAmount':loanAmount,
     'termsDay':termsDay,
@@ -48,10 +52,15 @@ class _LoanDetailsState extends State<LoanDetails> {
   }
   void parseDataToDataBase(){
     dataSaved();
-    // savedData!.forEach((key, value) {previousData!.addAll({key:value});});
-    // print(savedData);
     instanceOFDatabase.storeScreenTwo(savedData!);
     }
+  void displayPrediction()async{
+    parseDataToDataBase();
+    String? predResult = await instanceOFDatabase.predict();
+    ShowDialogue(context,predResult).showDialogBox();
+  }
+  
+  
 
   
 
@@ -80,6 +89,7 @@ class _LoanDetailsState extends State<LoanDetails> {
 
   @override
   Widget build(BuildContext context) {
+    
     
     return Scaffold(
       body: SafeArea(
@@ -162,7 +172,7 @@ class _LoanDetailsState extends State<LoanDetails> {
                         Container()
                       ],
                       
-                      Center(child: SaveButton(function: parseDataToDataBase,)),
+                      Center(child: SaveButton(function: displayPrediction)),
                       addVerticalSpace(10)
                       ],)
                   ),
