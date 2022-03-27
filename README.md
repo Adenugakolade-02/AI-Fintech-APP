@@ -13,4 +13,6 @@ The purpose of this project was to build an end to end Data Science project, fro
  #### Improvements
  Possible improvements includes engineering more highly predictive features to improve models performance, using more better models such as catboost, XGBoost. 
  
+ Link to app [Demo](https://youtu.be/LDapWcpiNEs)
+ 
  
